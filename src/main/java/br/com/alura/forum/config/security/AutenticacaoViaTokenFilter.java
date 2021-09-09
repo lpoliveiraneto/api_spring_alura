@@ -20,6 +20,7 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String token = recuperarToken(request);
+        System.out.println(token);
         boolean valido = tokenService.isTokenValido(token);
         System.out.println(valido);
         filterChain.doFilter(request, response);
@@ -30,6 +31,6 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
         if(token == null || token.isEmpty() || token.startsWith("Bearer ")){
             return null;
         }
-        return token.substring(7, token.length());
+        return token.substring(7, token.length()-1);
     }
 }
